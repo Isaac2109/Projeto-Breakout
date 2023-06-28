@@ -7,20 +7,26 @@ pg.display.set_caption('Breakout')
 clock = pg.time.Clock()
 pg.key.set_repeat(50)
 
-barra = pg.Surface((150,10))
+barra = pg.Surface((10,10))
 barra.fill((255,255,255))
-barra_pos = [450,470]
+barra_pos = []
+
+for w in range(450,600,10):
+    barra_pos.append((w,470))
 
 ball = pg.Surface((10,10))
 ball.fill((255,255,255))
-ball_pos = (800,450)
+ball_pos = (400,450)
 UP_R = 1
 UP_L = 2 
 UP = 3
 DOWN = 4 
 DOWN_R = 5
 DOWN_L = 6
-ball_direction = UP_R
+ball_direction = UP_L
+
+def hit(ballpos, barrapos):
+    return (ballpos[0] == barrapos[0]) and (ballpos[1] == barrapos[1])
 
 while True:
     clock.tick(10)
@@ -32,9 +38,12 @@ while True:
 
         if event.type == KEYDOWN:
             if event.key == K_LEFT:
-                barra_pos[0] -= 10 
+                for p in barra_pos:
+                    p = (p[0] - 10, p[1])
+                    print(p)
             if event.key == K_RIGHT:
-                barra_pos[0] += 10
+                for piece in barra_pos:
+                    piece[0] += 10 
 
     if ball_direction == UP_R:
         ball_pos = (ball_pos[0] + 10, ball_pos[1] - 10)
@@ -49,11 +58,28 @@ while True:
     if ball_direction == DOWN:
         ball_pos = (ball_pos[0], ball_pos[1] + 10)
         
-    if ball_pos[0] > 1000 and ball_direction == UP_R:
-        ball_direction == UP_L
+    if ball_pos[0] > 980 and ball_direction == UP_R:
+        ball_direction = UP_L
+    elif ball_pos[0] < 10 and ball_direction == UP_L:
+        ball_direction = UP_R
+    elif ball_pos[0] < 10 and ball_direction == DOWN_L:
+        ball_direction = DOWN_R
+    elif ball_pos[0] > 980 and ball_direction == DOWN_R:
+        ball_direction = DOWN_L
+    elif ball_pos[1] < 10 and ball_direction == UP_L:
+        ball_direction = DOWN_L
+    elif ball_pos[1] < 10 and ball_direction == UP_R:
+        ball_direction = DOWN_R
+    elif ball_pos[1] < 10 and ball_direction == UP:
+        ball_direction = DOWN
+
+    if hit(ball_pos, barra_pos) and ball_direction == DOWN_R:
+        ball_direction = UP_R
+    
         
-    print(ball_pos)
+    # print(ball_pos)
     screen.fill((0,0,0))
-    screen.blit(barra,barra_pos)
+    for piece in barra_pos:
+        screen.blit(barra,piece)
     screen.blit(ball,ball_pos)
     pg.display.update()
