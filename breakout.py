@@ -60,22 +60,42 @@ while True:
 
         for i,block in enumerate(lista_rects):
             bloco = pg.draw.rect(screen,cor_bloco,block)
-            if pg.Rect.collidepoint(bloco, ball_pos[0] + 10, ball_pos[1]) and ball_direction == UP_R:
+            if pg.Rect.collidepoint(bloco, ball_pos[0] + 10, ball_pos[1] - 5) and ball_direction == UP_R:
                 pontuação += lista_rects[i][2]
                 lista_rects[i] = (0,0,0,0)
                 ball_direction = DOWN_R
                 print(pontuação)
-            if pg.Rect.collidepoint(bloco, ball_pos[0] + 10, ball_pos[1]) and ball_direction == UP_L:
+            if pg.Rect.collidepoint(bloco, ball_pos[0] + 10, ball_pos[1] - 5) and ball_direction == UP_L:
                 pontuação += lista_rects[i][2]
                 lista_rects[i] = (0,0,0,0)
                 ball_direction = DOWN_L 
                 print(pontuação)  
-            if pg.Rect.collidepoint(bloco, ball_pos[0], ball_pos[1] + 10) and ball_direction == DOWN_L:
+            if pg.Rect.collidepoint(bloco, ball_pos[0], ball_pos[1] - 5) and ball_direction == UP_R:
+                pontuação += lista_rects[i][2]
+                lista_rects[i] = (0,0,0,0)
+                ball_direction = DOWN_R
+                print(pontuação)
+            if pg.Rect.collidepoint(bloco, ball_pos[0], ball_pos[1] - 5) and ball_direction == UP_L:
+                pontuação += lista_rects[i][2]
+                lista_rects[i] = (0,0,0,0)
+                ball_direction = DOWN_L 
+                print(pontuação) 
+            if pg.Rect.collidepoint(bloco, ball_pos[0] , ball_pos[1] + 15) and ball_direction == DOWN_L:
                 pontuação += lista_rects[i][2]
                 lista_rects[i] = (0,0,0,0)
                 ball_direction = UP_L
                 print(pontuação)  
-            if pg.Rect.collidepoint(bloco, ball_pos[0], ball_pos[1] + 10) and ball_direction == DOWN_R:
+            if pg.Rect.collidepoint(bloco, ball_pos[0], ball_pos[1] + 15) and ball_direction == DOWN_R:
+                pontuação += lista_rects[i][2]
+                lista_rects[i] = (0,0,0,0)
+                ball_direction = UP_R  
+                print(pontuação)  
+            if pg.Rect.collidepoint(bloco, ball_pos[0] + 10, ball_pos[1] + 15) and ball_direction == DOWN_L:
+                pontuação += lista_rects[i][2]
+                lista_rects[i] = (0,0,0,0)
+                ball_direction = UP_L
+                print(pontuação)  
+            if pg.Rect.collidepoint(bloco, ball_pos[0] + 10, ball_pos[1] + 15) and ball_direction == DOWN_R:
                 pontuação += lista_rects[i][2]
                 lista_rects[i] = (0,0,0,0)
                 ball_direction = UP_R  
