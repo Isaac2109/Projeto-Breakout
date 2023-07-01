@@ -17,6 +17,7 @@ running = True
 tela_restart = False
 tela_win = False
 
+cor_bloco = (250, 243, 30)
 ball_y = random.randint(280,450)
 ball_x = random.randint(10,980)
 barra_pos = (450,470,150,10)
@@ -41,8 +42,12 @@ ball_direction = random.choice(directions)
 
 while True:
     if running:
-        if pontuação > 1000:
+        if pontuação > 1000 and pontuação < 4000:
+            clock.tick(25)
+            cor_bloco = (250, 70, 5)
+        elif pontuação > 4000:
             clock.tick(30)
+            cor_bloco = (252, 3, 3)
         else:
             clock.tick(20)
         if pontuação == 6510:
@@ -54,7 +59,7 @@ while True:
         ball = pg.draw.rect(screen, (40,200,0), ball_pos)
 
         for i,block in enumerate(lista_rects):
-            bloco = pg.draw.rect(screen,(255,255,0),block)
+            bloco = pg.draw.rect(screen,cor_bloco,block)
             if pg.Rect.collidepoint(bloco, ball_pos[0] + 10, ball_pos[1]) and ball_direction == UP_R:
                 pontuação += lista_rects[i][2]
                 lista_rects[i] = (0,0,0,0)
@@ -120,6 +125,8 @@ while True:
             ball_direction = UP_R
         if pg.Rect.collidepoint(barra, ball_pos[0], ball_pos[1] + 15) and ball_direction == DOWN_L:
             ball_direction = UP_L
+        if pg.Rect.collidepoint(barra, ball_pos[0] + 10, ball_pos[1] + 15) and ball_direction == DOWN_L:
+            ball_direction = UP_L
         
         pg.display.update()
 
@@ -138,6 +145,8 @@ while True:
         ball = pg.draw.rect(screen, (40,200,0), ball_pos)
         ball_direction = random.choice(directions)
         pontuação = 0
+        cor_bloco = (250, 243, 30)
+
 
         for event in pg.event.get():
             if event.type == pg.QUIT:
@@ -170,6 +179,8 @@ while True:
         ball = pg.draw.rect(screen, (40,200,0), ball_pos)
         ball_direction = random.choice(directions)
         pontuação = 0
+        cor_bloco = (250, 243, 30)
+
 
         for event in pg.event.get():
             if event.type == pg.QUIT:
