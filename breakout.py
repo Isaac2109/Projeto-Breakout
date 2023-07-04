@@ -42,7 +42,7 @@ ball_direction = random.choice(directions)
 
 while True:
     if running:
-        if pontuação > 1000 and pontuação < 4000:
+        if pontuação > 2000 and pontuação < 4000:
             clock.tick(25)
             cor_bloco = (250, 70, 5)
         elif pontuação > 4000:
