@@ -1,2 +1,3 @@
-# Projeto Dino
- Neste projeto eu desenvolvi um joguinho baseado no game dino do Google Chrome.
+# Projeto Breakout
+ Neste projeto eu desenvolvi um joguinho baseado no game Breakout com Python/Pygame.
+ 
