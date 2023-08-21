@@ -24,6 +24,8 @@ barra_pos = (450,470,150,10)
 ball_pos = (ball_x,ball_y,10,10)
 pontuação = 0
 
+# Lista dos blocos
+
 lista_rects = [(10, 40, 100,20),(115, 40, 40,20),(160, 40, 150,20),(315, 40, 100,20),(420, 40, 110,20),(535, 40, 90,20),(630, 40, 120,20),
 (755, 40, 70,20),(830, 40, 160,20),(20, 65, 160,20),(185, 65, 80,20),(270, 65, 200,20),(475, 65, 130,20),(610, 65, 90,20),(705, 65, 190,20),
 (900, 65, 80,20),(10, 90, 130,20),(145, 90, 80,20),(230, 90, 110,20),(345, 90, 100,20),(450, 90, 180,20),(635, 90, 90,20),(730, 90, 100,20),
@@ -42,6 +44,9 @@ ball_direction = random.choice(directions)
 
 while True:
     if running:
+
+        # Velocidade do game
+
         if pontuação > 2000 and pontuação < 4000:
             clock.tick(25)
             cor_bloco = (250, 70, 5)
@@ -57,6 +62,8 @@ while True:
         screen.fill((0,0,0))
         barra = pg.draw.rect(screen, (40,50,255), barra_pos)
         ball = pg.draw.rect(screen, (40,200,0), ball_pos)
+
+        # Colisão da bola com os blocos
 
         for i,block in enumerate(lista_rects):
             bloco = pg.draw.rect(screen,cor_bloco,block)
@@ -107,11 +114,15 @@ while True:
                 pg.quit()
                 quit()
 
+            # Movimento da barra
+
             if event.type == KEYDOWN:
                 if event.key == K_LEFT and barra_pos[0] > 0:
                     barra_pos = (barra_pos[0] - 10,470,150,10)
                 if event.key == K_RIGHT and barra_pos[0] < 850:
                     barra_pos = (barra_pos[0] + 10,470,150,10)
+
+        # Movimento da bola
 
         if ball_direction == UP_R:
             ball_pos = (ball_pos[0] + 10, ball_pos[1] - 10,10,10)
@@ -121,6 +132,8 @@ while True:
             ball_pos = (ball_pos[0] + 10, ball_pos[1] + 10,10,10)
         if ball_direction == DOWN_L:
             ball_pos = (ball_pos[0] - 10, ball_pos[1] + 10,10,10)
+
+        # Tabela da bola nas extremidades da tela
 
         if ball_pos[0] > 980 and ball_direction == UP_R:
             ball_direction = UP_L
@@ -135,9 +148,13 @@ while True:
         elif ball_pos[1] < 10 and ball_direction == UP_R:
             ball_direction = DOWN_R
 
+        # bola passou do chão "PERDEU"
+
         if ball_pos[1] > 510:
             running = False
             tela_restart = True
+
+        # Bola quicar na barra
 
         if pg.Rect.collidepoint(barra, ball_pos[0] + 10, ball_pos[1] + 15) and ball_direction == DOWN_R:
             ball_direction = UP_R
@@ -149,6 +166,8 @@ while True:
             ball_direction = UP_L
         
         pg.display.update()
+
+    # Tela de Restart
 
     if tela_restart:
         lista_rects = [(10, 40, 100,20),(115, 40, 40,20),(160, 40, 150,20),(315, 40, 100,20),(420, 40, 110,20),(535, 40, 90,20),(630, 40, 120,20),
@@ -183,6 +202,8 @@ while True:
         screen.blit(text_perdeu,(380,180))
         screen.blit(text_reiniciar,(220,220))
         pg.display.update()
+
+    # Tela de vitória
 
     if tela_win:
         lista_rects = [(10, 40, 100,20),(115, 40, 40,20),(160, 40, 150,20),(315, 40, 100,20),(420, 40, 110,20),(535, 40, 90,20),(630, 40, 120,20),
